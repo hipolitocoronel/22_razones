@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "./forms.css";
+@import "./transitions.css";
+@import "leaflet/dist/leaflet.css";
+
+html {
+  scroll-behavior: smooth;
+  touch-action: manipulation;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.sticky-submit {
+  position: sticky;
+  bottom: calc(5rem + env(safe-area-inset-bottom, 0));
+  padding-top: 0.5rem;
+}

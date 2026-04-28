@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Fondo amber, igual al hero card de la app -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <!-- Brillo suave en la mitad superior -->
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Gradiente del corazón: rosa cálido -->
+    <linearGradient id="heart" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af"/>
+      <stop offset="100%" stop-color="#fb7185"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo redondeado estilo app icon -->
+  <rect width="200" height="200" rx="44" fill="url(#bg)"/>
+  <!-- Brillo superior -->
+  <rect width="200" height="96" rx="44" fill="url(#shine)"/>
+
+  <!-- "el" cursiva, color amber-100, pequeño arriba -->
+  <text
+    x="100" y="45"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-size="19"
+    fill="rgba(254,243,199,0.88)"
+    letter-spacing="7"
+  >el</text>
+
+  <!-- Línea separadora fina decorativa -->
+  <line x1="72" y1="53" x2="128" y2="53" stroke="rgba(254,243,199,0.3)" stroke-width="0.8"/>
+
+  <!-- Los dos "2" levemente inclinados el uno hacia el otro — dos personas acercándose -->
+  <text
+    x="63" y="138"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="95"
+    fill="white"
+    transform="rotate(-4, 63, 95)"
+  >2</text>
+  <text
+    x="137" y="138"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="95"
+    fill="white"
+    transform="rotate(4, 137, 95)"
+  >2</text>
+
+  <!-- Corazón centrado debajo del 22
+       Path original en viewBox 0 0 24 24, escalado 0.88, centrado en (100, 163) -->
+  <g transform="translate(89.44, 152.8) scale(0.88)">
+    <path
+      d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"
+      fill="url(#heart)"
+    />
+  </g>
+
+  <!-- Fecha del primer encuentro: 22·01, muy sutil al pie -->
+  <text
+    x="100" y="190"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-size="10"
+    fill="rgba(254,243,199,0.45)"
+    letter-spacing="2"
+  >22 · 01</text>
+</svg>

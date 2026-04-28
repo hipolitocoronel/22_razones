@@ -1,0 +1,180 @@
+/*
+ * ─────────────────────────────────────────────
+ *  MERIENDAS DEL 22 — Design Tokens
+ *  Editá este archivo para cambiar todo el look
+ * ─────────────────────────────────────────────
+ *
+ *  Tipografía: Lora (headings) + Raleway (body)
+ *  Estilo:     Soft UI Evolution — warm, cozy, personal
+ *  Paleta:     Warm Café (light) / Warm Night (dark)
+ */
+
+/* ── Dark mode: se activa con la clase .dark en <html> ── */
+@variant dark (&:where(.dark, .dark *));
+
+/* ══════════════════════════════════════════
+   LIGHT MODE — Warm Café
+   ══════════════════════════════════════════ */
+:root {
+  /* Fondo general de la app */
+  --color-bg:           #FFF8EF;
+
+  /* Superficie de cards y paneles */
+  --color-surface:      #FFFFFF;
+  --color-surface-2:    #FFF4E6;
+
+  /* Primario (botones, links, accents) */
+  --color-brand:        #D97706;   /* amber-600 */
+  --color-brand-hover:  #B45309;   /* amber-700 */
+  --color-brand-light:  #FEF3C7;   /* amber-100 */
+  --color-brand-muted:  #FDE68A;   /* amber-200 */
+
+  /* Texto */
+  --color-text-primary:   #1C1208;
+  --color-text-secondary: #78716C;
+  --color-text-muted:     #A8A29E;
+
+  /* Bordes */
+  --color-border:       #E7E5E4;
+  --color-border-light: #F5F5F4;
+
+  /* Estados */
+  --color-success:  #16A34A;
+  --color-error:    #DC2626;
+  --color-warning:  #D97706;
+
+  /* Sombras */
+  --shadow-sm:   0 1px 3px rgba(28,18,8,0.06), 0 1px 2px rgba(28,18,8,0.04);
+  --shadow-md:   0 4px 12px rgba(28,18,8,0.08), 0 2px 4px rgba(28,18,8,0.04);
+  --shadow-brand: 0 8px 24px rgba(217,119,6,0.25);
+
+  /* Radio */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* Tipografía */
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body:    'Raleway', system-ui, sans-serif;
+}
+
+/* ══════════════════════════════════════════
+   DARK MODE — Warm Night
+   ══════════════════════════════════════════ */
+.dark {
+  --color-bg:           #1A1208;
+  --color-surface:      #28190E;
+  --color-surface-2:    #342112;
+
+  --color-brand:        #F59E0B;   /* amber-500 — más claro en dark */
+  --color-brand-hover:  #D97706;
+  --color-brand-light:  #2D1F08;
+  --color-brand-muted:  #3D2910;
+
+  --color-text-primary:   #FEF3C7;
+  --color-text-secondary: #A8916A;
+  --color-text-muted:     #6B5240;
+
+  --color-border:       #3D2A18;
+  --color-border-light: #2D1F0E;
+
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md:   0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.2);
+  --shadow-brand: 0 8px 24px rgba(245,158,11,0.2);
+}
+
+/* ══════════════════════════════════════════
+   BASE — fuentes, colores e inputs globales
+   ══════════════════════════════════════════ */
+html, body, #app {
+  font-family: var(--font-body) !important;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading) !important;
+  color: var(--color-text-primary);
+}
+
+/* Inputs adaptan al tema automáticamente */
+input, textarea, select {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-border) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-text-muted) !important;
+  opacity: 1;
+}
+
+/* Labels */
+label {
+  color: var(--color-text-secondary);
+}
+
+/* Botones outline heredan color del tema */
+.btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-body);
+  font-weight: 500;
+  transition: all 150ms ease;
+  cursor: pointer;
+  min-height: 44px;
+}
+.btn-outline:active { transform: scale(0.97); }
+.btn-outline.active {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+  color: white;
+}
+
+/* ── Clases semánticas usables en componentes ── */
+@layer utilities {
+  .bg-app        { background-color: var(--color-bg); }
+  .bg-surface    { background-color: var(--color-surface); }
+  .bg-surface-2  { background-color: var(--color-surface-2); }
+
+  .text-main     { color: var(--color-text-primary); }
+  .text-soft     { color: var(--color-text-secondary); }
+  .text-muted    { color: var(--color-text-muted); }
+  .text-brand    { color: var(--color-brand); }
+
+  .border-app    { border-color: var(--color-border); }
+
+  .bg-brand      { background-color: var(--color-brand); }
+  .bg-brand-light { background-color: var(--color-brand-light); }
+
+  .shadow-app    { box-shadow: var(--shadow-sm); }
+  .shadow-app-md { box-shadow: var(--shadow-md); }
+  .shadow-brand  { box-shadow: var(--shadow-brand); }
+
+  /* Card base — card que respeta el tema */
+  .card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-light);
+  }
+
+  /* Botón primario */
+  .btn-primary {
+    background-color: var(--color-brand);
+    color: white;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-weight: 600;
+    transition: background-color 150ms ease, transform 150ms ease;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .btn-primary:hover  { background-color: var(--color-brand-hover); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+}

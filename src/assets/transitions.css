@@ -1,0 +1,118 @@
+/* ══════════════════════════════════════════
+   Route transitions — mobile-app feel
+   ══════════════════════════════════════════ */
+
+.slide-forward-enter-active,
+.slide-forward-leave-active,
+.slide-back-enter-active,
+.slide-back-leave-active {
+  transition:
+    transform 280ms cubic-bezier(0.32, 0.72, 0.28, 1),
+    opacity 200ms ease;
+  will-change: transform, opacity;
+}
+
+.slide-forward-enter-from {
+  transform: translate3d(24px, 0, 0);
+  opacity: 0;
+}
+.slide-forward-leave-to {
+  transform: translate3d(-24px, 0, 0);
+  opacity: 0;
+}
+
+.slide-back-enter-from {
+  transform: translate3d(-24px, 0, 0);
+  opacity: 0;
+}
+.slide-back-leave-to {
+  transform: translate3d(24px, 0, 0);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.fade-enter-from {
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+}
+.fade-leave-to {
+  opacity: 0;
+  transform: translate3d(0, -4px, 0);
+}
+
+/* Login/logout: fade con suave escala */
+.auth-fade-enter-active,
+.auth-fade-leave-active {
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.auth-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.98);
+}
+.auth-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+/* Header + BottomNav fade al loguear/desloguear */
+.chrome-fade-enter-active,
+.chrome-fade-leave-active {
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.chrome-fade-enter-from {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+.chrome-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+/* Bottom nav desde abajo */
+.nav-fade-enter-active,
+.nav-fade-leave-active {
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.nav-fade-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.nav-fade-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Respetar preferencia del usuario */
+@media (prefers-reduced-motion: reduce) {
+  .slide-forward-enter-active,
+  .slide-forward-leave-active,
+  .slide-back-enter-active,
+  .slide-back-leave-active,
+  .fade-enter-active,
+  .fade-leave-active,
+  .auth-fade-enter-active,
+  .auth-fade-leave-active,
+  .chrome-fade-enter-active,
+  .chrome-fade-leave-active,
+  .nav-fade-enter-active,
+  .nav-fade-leave-active {
+    transition: opacity 120ms ease !important;
+  }
+  .slide-forward-enter-from,
+  .slide-forward-leave-to,
+  .slide-back-enter-from,
+  .slide-back-leave-to,
+  .fade-enter-from,
+  .fade-leave-to,
+  .auth-fade-enter-from,
+  .auth-fade-leave-to,
+  .chrome-fade-enter-from,
+  .chrome-fade-leave-to,
+  .nav-fade-enter-from,
+  .nav-fade-leave-to {
+    transform: none !important;
+  }
+}
