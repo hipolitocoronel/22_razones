@@ -1,15 +1,5 @@
 <template>
   <div class="flex flex-col gap-4 relative">
-    <div
-      v-if="ptr.pulling.value || ptr.triggered.value"
-      class="flex justify-center overflow-hidden transition-all"
-      :style="{ height: ptr.triggered.value ? '48px' : `${ptr.progress.value * 48}px`, opacity: ptr.triggered.value ? 1 : ptr.progress.value }"
-    >
-      <div class="flex items-center justify-center w-10 h-10 rounded-full bg-surface-2 text-brand">
-        <Loader2 :size="18" :class="ptr.triggered.value ? 'animate-spin' : ''" :style="{ transform: `rotate(${ptr.progress.value * 360}deg)` }" />
-      </div>
-    </div>
-
     <!-- Hero card -->
     <div class="rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 text-white p-5 shadow-brand">
       <div class="flex items-start justify-between">
@@ -101,17 +91,14 @@ import { storeToRefs } from 'pinia'
 import { useVisitsStore } from '../stores/visits'
 import { useCurrentStreak } from '../composables/useStreak'
 import VisitCard from '../components/VisitCard.vue'
-import { Flame, Coffee, Heart, Clock, ChevronRight, Loader2 } from 'lucide-vue-next'
+import { Flame, Coffee, Heart, Clock, ChevronRight } from 'lucide-vue-next'
 import Stars from '../components/Stars.vue'
-import { usePullToRefresh } from '../composables/usePullToRefresh'
 
 const store = useVisitsStore()
 const { visits, loading } = storeToRefs(store)
 const streak = useCurrentStreak(visits)
 
 onMounted(() => store.fetchVisits())
-
-const ptr = usePullToRefresh(() => store.fetchVisits())
 
 const nextDate = computed(() => {
   const now = new Date()

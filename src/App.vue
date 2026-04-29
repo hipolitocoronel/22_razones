@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-app transition-colors duration-300">
+  <div class="min-h-dvh bg-app transition-colors duration-300">
 
     <Transition name="chrome-fade">
       <header v-if="auth.user" class="bg-surface border-b border-app sticky top-0 z-40 transition-colors duration-300">
@@ -28,7 +28,7 @@
       </header>
     </Transition>
 
-    <main class="max-w-2xl mx-auto px-4 py-5" :class="auth.user ? 'pb-28' : ''">
+    <main class="max-w-2xl mx-auto px-4 py-5 pb-28 overflow-x-hidden">
       <RouterView v-slot="{ Component, route: r }">
         <Transition :name="r.meta.transitionName || 'fade'" mode="out-in">
           <component :is="Component" :key="r.path" />

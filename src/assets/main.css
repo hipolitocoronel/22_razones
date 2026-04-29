@@ -10,6 +10,11 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+body {
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

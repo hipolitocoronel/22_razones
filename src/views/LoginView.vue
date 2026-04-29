@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-dvh bg-app flex flex-col items-center justify-center px-6 py-6">
+  <div class="fixed inset-0 z-30 bg-app flex flex-col items-center justify-center px-6 py-6">
 
     <!-- Branding -->
     <div class="text-center mb-6">

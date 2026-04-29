@@ -1,14 +1,5 @@
 <template>
   <div>
-    <div
-      v-if="ptr.pulling.value || ptr.triggered.value"
-      class="flex justify-center overflow-hidden transition-all"
-      :style="{ height: ptr.triggered.value ? '48px' : `${ptr.progress.value * 48}px`, opacity: ptr.triggered.value ? 1 : ptr.progress.value }"
-    >
-      <div class="flex items-center justify-center w-10 h-10 rounded-full bg-surface-2 text-brand">
-        <Loader2 :size="18" :class="ptr.triggered.value ? 'animate-spin' : ''" :style="{ transform: `rotate(${ptr.progress.value * 360}deg)` }" />
-      </div>
-    </div>
     <div class="flex items-center justify-between mb-4">
       <h1 class="text-xl font-bold text-main">Lugares</h1>
       <RouterLink
@@ -157,10 +148,9 @@ import { usePlacesStore } from '../stores/places'
 import { useVisitsStore } from '../stores/visits'
 import { useVisitStats } from '../composables/useVisitStats'
 import PlaceCard from '../components/PlaceCard.vue'
-import { CheckCircle, Clock, Coffee, Bookmark, PlusCircle, Heart, ChevronRight, Dices, Loader2 } from 'lucide-vue-next'
+import { CheckCircle, Clock, Coffee, Bookmark, PlusCircle, Heart, ChevronRight, Dices } from 'lucide-vue-next'
 import { useHaptic } from '../composables/useHaptic'
 import { useToast } from '../composables/useToast'
-import { usePullToRefresh } from '../composables/usePullToRefresh'
 
 const route = useRoute()
 const placesStore = usePlacesStore()
@@ -196,10 +186,6 @@ async function rollRandom() {
 onMounted(async () => {
   await Promise.all([placesStore.fetchPlaces(), visitsStore.fetchVisits()])
   loading.value = false
-})
-
-const ptr = usePullToRefresh(async () => {
-  await Promise.all([placesStore.fetchPlaces(), visitsStore.fetchVisits()])
 })
 
 const tabs = [
