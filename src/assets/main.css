@@ -29,5 +29,13 @@ body {
 .sticky-submit {
   position: sticky;
   bottom: calc(5rem + env(safe-area-inset-bottom, 0));
-  padding-top: 0.5rem;
+  margin-top: 2.5rem;
+  padding: 1.25rem 0 0.5rem;
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    var(--color-app) 1.25rem,
+    var(--color-app) 100%
+  );
+  z-index: 10;
 }

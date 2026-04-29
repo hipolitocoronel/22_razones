@@ -104,6 +104,7 @@ import { useVisitStats } from '../composables/useVisitStats'
 import { CATEGORIES } from '../utils/categories'
 import { RouterLink } from 'vue-router'
 import { Calendar, ChevronRight } from 'lucide-vue-next'
+import { parseDate, formatPrice } from '../utils/format'
 
 const placesStore = usePlacesStore()
 const visitsStore = useVisitsStore()
@@ -140,7 +141,7 @@ const stats = computed(() => {
     if (visit.score) { scoreSum += visit.score; scoreCount++ }
     if (visit.price != null) { priceSum += Number(visit.price); priceCount++ }
 
-    const d = new Date(visit.date)
+    const d = parseDate(visit.date)
     const monthKey = d.toLocaleDateString('es-AR', { month: 'short', year: '2-digit' })
     monthCounts.set(monthKey, (monthCounts.get(monthKey) || 0) + 1)
 
@@ -173,7 +174,7 @@ const stats = computed(() => {
   return {
     total: v.length,
     avgScore: scoreCount ? (scoreSum / scoreCount).toFixed(1) : '—',
-    avgPrice: priceCount ? '$' + Math.round(priceSum / priceCount) : '—',
+    avgPrice: priceCount ? '$' + formatPrice(Math.round(priceSum / priceCount)) : '—',
     mostVisited: topId ? { name: placeById.get(topId)?.name || '—', count: topCount } : { name: '—', count: 0 },
     topRated: topAvgId ? { name: placeById.get(topAvgId)?.name || '—', avg: topAvg.toFixed(1) } : { name: '—', avg: null },
     busiestMonth,

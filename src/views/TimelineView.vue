@@ -93,6 +93,7 @@ import { useCurrentStreak } from '../composables/useStreak'
 import VisitCard from '../components/VisitCard.vue'
 import { Flame, Coffee, Heart, Clock, ChevronRight } from 'lucide-vue-next'
 import Stars from '../components/Stars.vue'
+import { parseDate } from '../utils/format'
 
 const store = useVisitsStore()
 const { visits, loading } = storeToRefs(store)
@@ -117,9 +118,9 @@ const daysUntilNext = computed(() => {
 const daysTogether = computed(() => {
   if (!visits.value.length) return 0
   const first = visits.value.reduce((min, v) =>
-    new Date(v.date) < new Date(min.date) ? v : min
+    parseDate(v.date) < parseDate(min.date) ? v : min
   )
-  const ms = Date.now() - new Date(first.date).getTime()
+  const ms = Date.now() - parseDate(first.date).getTime()
   return Math.max(0, Math.floor(ms / (1000 * 60 * 60 * 24)))
 })
 
@@ -129,20 +130,20 @@ const forgotten = computed(() => {
   const lastByPlace = new Map()
   for (const v of visits.value) {
     const curr = lastByPlace.get(v.place_id)
-    if (!curr || new Date(v.date) > new Date(curr.date)) {
+    if (!curr || parseDate(v.date) > parseDate(curr.date)) {
       lastByPlace.set(v.place_id, v)
     }
   }
   const candidates = [...lastByPlace.values()]
     .filter(v => {
-      const months = (now.getFullYear() - new Date(v.date).getFullYear()) * 12
-        + now.getMonth() - new Date(v.date).getMonth()
+      const months = (now.getFullYear() - parseDate(v.date).getFullYear()) * 12
+        + now.getMonth() - parseDate(v.date).getMonth()
       return months >= 6 && (v.score || 0) >= 4
     })
     .sort((a, b) => (b.score || 0) - (a.score || 0))
   const pick = candidates[0]
   if (!pick) return null
-  const d = new Date(pick.date)
+  const d = parseDate(pick.date)
   const monthsAgo = (now.getFullYear() - d.getFullYear()) * 12 + now.getMonth() - d.getMonth()
   return {
     placeId: pick.place_id,
@@ -161,15 +162,15 @@ const recuerdo = computed(() => {
 
   const match = visits.value
     .filter(v => {
-      const d = new Date(v.date)
+      const d = parseDate(v.date)
       return d.getDate() === todayDay &&
         !(d.getFullYear() === currentYear && d.getMonth() === currentMonth)
     })
-    .sort((a, b) => new Date(b.date) - new Date(a.date))[0]
+    .sort((a, b) => parseDate(b.date) - parseDate(a.date))[0]
 
   if (!match) return null
 
-  const d = new Date(match.date)
+  const d = parseDate(match.date)
   const monthsAgo = (currentYear - d.getFullYear()) * 12 + (currentMonth - d.getMonth())
   const placeName = match.places?.name || '—'
 

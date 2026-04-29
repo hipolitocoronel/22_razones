@@ -6,7 +6,9 @@
   color: var(--color-text-secondary);
 }
 
-.form-input {
+/* :where() baja la especificidad a 0 para que las utilities de Tailwind
+   (pl-9, py-2, etc.) puedan sobrescribir el padding individualmente. */
+:where(.form-input) {
   width: 100%;
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
@@ -18,7 +20,7 @@
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
-.form-input:focus {
+:where(.form-input:focus) {
   border-color: var(--color-brand);
   box-shadow: 0 0 0 2px var(--color-brand-muted);
 }

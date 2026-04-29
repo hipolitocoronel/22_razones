@@ -44,13 +44,14 @@ import { computed } from 'vue'
 import Stars from './Stars.vue'
 import { ChevronRight, Sparkles } from 'lucide-vue-next'
 import { getCategory } from '../utils/categories'
+import { parseDate } from '../utils/format'
 
 const props = defineProps({ visit: Object })
 
 const cat = computed(() => getCategory(props.visit.category))
 
 const formattedDate = computed(() =>
-  new Date(props.visit.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })
+  parseDate(props.visit.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })
 )
 
 const scoreColor = computed(() => {

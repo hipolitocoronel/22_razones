@@ -42,8 +42,18 @@
     <div>
       <label for="price" class="form-label">Precio aprox. por persona</label>
       <div class="relative">
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted text-sm font-medium">$</span>
-        <input id="price" v-model="form.price" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="0" class="form-input pl-7" />
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted text-sm font-medium pointer-events-none">$</span>
+        <input
+          id="price"
+          ref="priceInput"
+          :value="priceDisplay"
+          @input="onPriceInput"
+          type="text"
+          inputmode="numeric"
+          placeholder="0"
+          class="form-input"
+          style="padding-left: 2.25rem"
+        />
       </div>
     </div>
 
@@ -145,7 +155,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import Stars from './Stars.vue'
 import { Camera, X, Check } from 'lucide-vue-next'
 import { CATEGORIES } from '../utils/categories'
@@ -160,4 +170,32 @@ defineProps({
 defineEmits(['photo-select', 'photo-remove'])
 
 const photoInput = ref(null)
+const priceInput = ref(null)
+
+const priceFmt = new Intl.NumberFormat('es-AR')
+
+const priceDisplay = computed(() => {
+  const n = Number(form.value.price)
+  return n > 0 ? priceFmt.format(n) : ''
+})
+
+function onPriceInput(e) {
+  const oldDisplay = e.target.value
+  const oldCursor = e.target.selectionStart ?? oldDisplay.length
+  const digitsBefore = oldDisplay.slice(0, oldCursor).replace(/\D/g, '').length
+
+  const raw = oldDisplay.replace(/\D/g, '')
+  form.value.price = raw ? Number(raw) : ''
+
+  nextTick(() => {
+    if (!priceInput.value) return
+    const newDisplay = priceInput.value.value
+    let pos = 0, count = 0
+    while (pos < newDisplay.length && count < digitsBefore) {
+      if (/\d/.test(newDisplay[pos])) count++
+      pos++
+    }
+    priceInput.value.setSelectionRange(pos, pos)
+  })
+}
 </script>

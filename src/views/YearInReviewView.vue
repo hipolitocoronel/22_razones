@@ -146,6 +146,7 @@ import { useVisitsStore } from '../stores/visits'
 import Stars from '../components/Stars.vue'
 import { ArrowLeft, Coffee, Calendar, Sunrise, Sunset } from 'lucide-vue-next'
 import { getCategory } from '../utils/categories'
+import { parseDate } from '../utils/format'
 
 const route = useRoute()
 const router = useRouter()
@@ -161,12 +162,12 @@ onMounted(async () => {
 })
 
 const yearVisits = computed(() =>
-  visits.value.filter(v => new Date(v.date).getFullYear() === year.value)
+  visits.value.filter(v => parseDate(v.date).getFullYear() === year.value)
 )
 
 const monthGrid = computed(() => {
   const counts = new Array(12).fill(0)
-  for (const v of yearVisits.value) counts[new Date(v.date).getMonth()]++
+  for (const v of yearVisits.value) counts[parseDate(v.date).getMonth()]++
   const labels = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic']
   return counts.map((c, i) => ({ idx: i, label: labels[i], count: c, active: c > 0 }))
 })
@@ -189,7 +190,7 @@ const summary = computed(() => {
     }
   }
 
-  const sorted = [...v].sort((a, b) => new Date(a.date) - new Date(b.date))
+  const sorted = [...v].sort((a, b) => parseDate(a.date) - parseDate(b.date))
   let spent = 0
   const byPlace = new Map()
   const monthCount = new Map()
@@ -202,7 +203,7 @@ const summary = computed(() => {
     if (!byPlace.has(pid)) byPlace.set(pid, { id: pid, name: it.places?.name || '—', sum: 0, count: 0 })
     const p = byPlace.get(pid)
     if (it.score) { p.sum += it.score; p.count++ }
-    const m = new Date(it.date).getMonth()
+    const m = parseDate(it.date).getMonth()
     monthCount.set(m, (monthCount.get(m) || 0) + 1)
     const c = it.category || 'merienda'
     catCount.set(c, (catCount.get(c) || 0) + 1)
@@ -237,7 +238,7 @@ const summary = computed(() => {
   let favCat = null, favCount = 0
   for (const [k, c] of catCount) if (c > favCount) { favCount = c; favCat = k }
 
-  const uniqueMonths = [...new Set(v.map(x => new Date(x.date).getMonth()))].sort((a, b) => a - b)
+  const uniqueMonths = [...new Set(v.map(x => parseDate(x.date).getMonth()))].sort((a, b) => a - b)
   let bestStreak = 1, cur = 1
   for (let i = 1; i < uniqueMonths.length; i++) {
     if (uniqueMonths[i] - uniqueMonths[i - 1] === 1) { cur++; if (cur > bestStreak) bestStreak = cur }
@@ -245,7 +246,7 @@ const summary = computed(() => {
   }
   if (uniqueMonths.length === 0) bestStreak = 0
 
-  const fmtDate = d => new Date(d).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })
+  const fmtDate = d => parseDate(d).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })
 
   return {
     total: v.length,

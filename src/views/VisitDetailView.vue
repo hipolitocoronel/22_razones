@@ -130,7 +130,7 @@
       <!-- Info pills -->
       <div class="flex flex-wrap gap-2">
         <span v-if="visit.price" class="info-pill">
-          <DollarSign :size="13" /> ${{ visit.price }} por persona
+          <DollarSign :size="13" /> ${{ formatPrice(visit.price) }} por persona
         </span>
         <span v-if="visit.suggested_by" class="info-pill">
           <Lightbulb :size="13" /> {{ visit.suggested_by }}
@@ -185,6 +185,7 @@ import { supabase } from '../services/supabase'
 import Stars from '../components/Stars.vue'
 import { ArrowLeft, Sparkles, DollarSign, Lightbulb, ThumbsUp, ThumbsDown, HelpCircle, MapPin, ExternalLink, Pencil, Cloud, X, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import { getCategory } from '../utils/categories'
+import { parseDate, formatPrice } from '../utils/format'
 
 const route = useRoute()
 const router = useRouter()
@@ -243,7 +244,7 @@ const mapsUrl = computed(() => {
 
 const formattedDate = computed(() => {
   if (!visit.value) return ''
-  return new Date(visit.value.date).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+  return parseDate(visit.value.date).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
 })
 </script>
 
